@@ -1,9 +1,22 @@
 .container.wrapper
+  - if @invoice.errors.any?
+    .row
+      .col-sm-6.col-md-6
+        .alert.alert-danger
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"}
+            ×
+          %span.glyphicon.glyphicon-hand-right
+          %strong Error Messages
+          %hr.message-inner-separator/
+          %p
+            = @invoice.errors.full_messages.join("\n")
   .row.cart-body
     = form_for(@invoice, url: payments_path, method: :post, html: {class: 'form-horizontal new_invoice'}) do|f|
       .col-lg-6.col-md-6.col-sm-6.col-xs-12
         / Address
         = f.fields_for :address do|addr|
+          = addr.hidden_field :addressable_type
+          = addr.hidden_field :addressable_id
           .panel.panel-info
             .panel-heading Address
             .panel-body

@@ -35,7 +35,7 @@
               %td.col-sm-1.col-md-1.text-center
                 %strong= "$#{order_item.price * order_item.quantity}"
               %td.col-sm-1.col-md-1
-                %button.btn.btn-danger{:type => "button"}
+                %button.btn.btn-danger#order_item_remove{:type => "button"}
                   %span.glyphicon.glyphicon-remove
                   Remove
         
@@ -48,16 +48,7 @@
             %td.text-right
               %h5
                 %strong= "$#{subtotal}"
-          %tr
-            %td  
-            %td  
-            %td  
-            %td
-              %h5 Estimated shipping
-            %td.text-right
-              %h5
-                %strong $6.94
-          %tr
+                 %tr
             %td  
             %td  
             %td  
@@ -65,16 +56,16 @@
               %h3 Total
             %td.text-right
               %h3
-                %strong $31.53
+                %strong= "$#{subtotal}"
           %tr
             %td  
             %td  
             %td  
             %td
-              %button.btn.btn-default{:type => "button"}
+              %a.btn.btn-default{:type => "button", href: root_path}
                 %span.glyphicon.glyphicon-shopping-cart
                 Continue Shopping
             %td
-              %button.btn.btn-success{:type => "button"}
+              %a.btn.btn-default{:type => "button", href: new_payments_path}
                 Checkout
                 %span.glyphicon.glyphicon-play

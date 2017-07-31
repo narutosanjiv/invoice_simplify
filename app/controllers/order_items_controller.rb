@@ -26,6 +26,22 @@ class OrderItemsController < ApplicationController
     render json: {success: true, message: e.message}, status: 403 
   end
 
+  def destroy
+    order_item = OrderItem.where(id: params[:id]).last
+    order = order_item.order
+    success = "" 
+    message = ""
+    if order && order.user_id == current_user.id 
+      order_item.destroy
+      success = true
+      message = "Deleted Successfully"
+    else 
+      success = false
+      message = "Failed to delete Item"
+    end
+    render json: {success: success, message: message}
+  end
+
   private
   def order_item_params
     params[:order].permit(:item_id)

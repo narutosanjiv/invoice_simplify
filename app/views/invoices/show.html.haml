@@ -1,4 +1,5 @@
 .container
+  
   .row
     .col-xs-12
       .invoice-title
@@ -40,7 +41,7 @@
           %address
             %strong Order Date:
             %br/
-            = @invoice.date
+            = @invoice.date_at
             %br/
             %br/
   .row
@@ -57,11 +58,11 @@
                   %td
                     %strong Item
                   %td.text-center
-                    %strong Price(GBP)
+                    %strong Price(USD)
                   %td.text-center
                     %strong Quantity
                   %td.text-right
-                    %strong Totals(GBP)
+                    %strong Totals(USD)
               %tbody
                 - @order.order_items.each do|order_item|
                   %tr
@@ -80,5 +81,5 @@
                   %td.no-line
                   %td.no-line
                   %td.no-line.text-center
-                    %strong Total
-                  %td.no-line.text-right= @invoice.total_price
+                    %strong Total(GBP)
+                  %td.no-line.text-right= Fixer.conversion_rates(expected_currency: "GBP", amount: @invoice.total_price)
