@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   match '/cart', to: 'orders#cart', via: :get, as: :cart_orders
   
   match '/order_items', to: 'order_items#create', via: :post, as: :create_order_item
-  
+  match '/payments/new', to: 'payments#new', via: :get, as: :new_payments
+  match '/payments', to: 'payments#create', via: :post, as: :payments
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

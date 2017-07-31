@@ -1,0 +1,100 @@
+.container.wrapper
+  .row.cart-body
+    = form_for(@invoice, url: payments_path, method: :post, html: {class: 'form-horizontal new_invoice'}) do|f|
+      .col-lg-6.col-md-6.col-sm-6.col-xs-12
+        / Address
+        = f.fields_for :address do|addr|
+          .panel.panel-info
+            .panel-heading Address
+            .panel-body
+              .form-group
+                .col-md-12
+                  %strong Country:
+                .col-md-12
+                  = addr.text_field :country, class: 'form-control'
+              .form-group
+                .col-md-6.col-xs-12
+                  %strong First Name:
+                  = addr.text_field :first_name, class: 'form-control'
+                .span1
+                .col-md-6.col-xs-12
+                  %strong Last Name:
+                  = addr.text_field :last_name, class: 'form-control'
+              .form-group
+                .col-md-12
+                  %strong Address:
+                .col-md-12
+                  = addr.text_field :street1, class: 'form-control'
+              .form-group
+                .col-md-12
+                  %strong City:
+                .col-md-12
+                  = addr.text_field :city, class: 'form-control'
+              .form-group
+                .col-md-12
+                  %strong State:
+                .col-md-12
+                  = addr.text_field :state, class: 'form-control'
+              .form-group
+                .col-md-12
+                  %strong Zip / Postal Code:
+                .col-md-12
+                  = addr.text_field :pincode, class: 'form-control'
+              .form-group
+                .col-md-12
+                  %strong Phone Number:
+                .col-md-12
+                  = addr.text_field :phone_no, class: 'form-control'
+              .form-group
+                .col-md-12
+                  %strong Email Address:
+                .col-md-12
+                  = addr.text_field :email, class: 'form-control'
+      / SHIPPING METHOD END
+      / CREDIT CART PAYMENT
+      .col-lg-6.col-md-6.col-sm-6.col-xs-12
+        = f.fields_for :payment do|pymt|
+          .panel.panel-info
+            .panel-heading
+              %span
+                %i.glyphicon.glyphicon-lock
+              Secure Payment
+            .panel-body
+              .form-group
+                .col-md-12
+                  %strong Card Type:
+                .col-md-12
+                  = pymt.select :card_type, options_for_select([ "VISA", "MasterCard" ], "MasterCard"), {}, {class: 'form-control'}
+                  
+              .form-group
+                .col-md-12
+                  %strong Credit Card Number:
+                .col-md-12
+                  = pymt.text_field :credit_card_no, class: 'form-control'
+              .form-group
+                .col-md-12
+                  %strong Card CVV:
+                .col-md-12
+                  = pymt.text_field :cvv, class: 'form-control'
+              .form-group
+                .col-md-12
+                  %strong Expiration Date
+                .col-lg-6.col-md-6.col-sm-6.col-xs-12
+                  = pymt.select :expiry_month, options_for_select((1..12).to_a, 'Month'), {}, {class: 'form-control', prompt: 'Month'}
+                  
+                .col-lg-6.col-md-6.col-sm-6.col-xs-12
+                  = pymt.select :expiry_year, options_for_select((Date.today.year..Date.today.year + 10).to_a, 'Month'), {}, {class: 'form-control', prompt: 'Year'}
+                
+              .form-group
+                .col-md-12
+                  %span Pay secure using your credit card.
+                .col-md-12
+                  %ul.cards
+                    %li.visa.hand Visa
+                    %li.mastercard.hand MasterCard
+                  .clearfix
+              .form-group
+                .col-md-6.col-sm-6.col-xs-12
+                  %button.btn.btn-primary.btn-submit-fix{:type => "submit"} Place Order
+        / CREDIT CART PAYMENT END
+  .row.cart-footer

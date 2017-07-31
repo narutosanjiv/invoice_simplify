@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
   end
 
   def cart
-    @order = Order.includes(:order_items).where(status: 'draft', user_id: current_user.id).last
+    @order = Order.pending(current_user.id)
     @order_items = @order.order_items
   end
 end

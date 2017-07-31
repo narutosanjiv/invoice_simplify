@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170731104226) do
+ActiveRecord::Schema.define(version: 20170731144048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,13 @@ ActiveRecord::Schema.define(version: 20170731104226) do
     t.string "mobile_no"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
+    t.integer "addressable_id"
+    t.string "addressable_type"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "state"
+    t.string "phone_no"
   end
 
   create_table "invoices", force: :cascade do |t|
@@ -71,6 +78,23 @@ ActiveRecord::Schema.define(version: 20170731104226) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.string "pay_method"
+    t.string "transaction_type"
+    t.float "amount"
+    t.bigint "invoice_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "card_type"
+    t.string "credit_card_no"
+    t.string "cvv"
+    t.string "expiry_month"
+    t.string "expiry_year"
+    t.index ["invoice_id"], name: "index_payments_on_invoice_id"
+    t.index ["user_id"], name: "index_payments_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -90,4 +114,6 @@ ActiveRecord::Schema.define(version: 20170731104226) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "payments", "invoices"
+  add_foreign_key "payments", "users"
 end
