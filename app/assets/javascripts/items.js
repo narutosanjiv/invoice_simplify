@@ -1,8 +1,21 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-
 $(document).ready(function() {
-    $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
-    $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});
+  $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
+  $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});
+
+  $('body').on('click', '.add_order_item', function(){
+    token = $('meta[name=csrf-token]').attr('content');
+    $.ajax(
+      {
+        method: 'POST',
+        url: '/order_items',
+        headers: {
+          'X-CSRF-TOKEN': token
+        },
+        data: {order_item: {item_id: $(this).data('item-id')}},
+        success: function(data, textStatus, jqXHR ){
+          alert('Success ')
+        }
+      }
+    )
+  })
 });

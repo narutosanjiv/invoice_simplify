@@ -17,9 +17,11 @@
             %li
               = link_to 'My Account', '#'
             %li
-              = link_to 'Shopping Cart', '#'
+              = link_to 'Shopping Cart', cart_orders_path
+            / %li
+            /   = link_to 'Checkout', checkout_orders_path
             %li
-              = link_to 'Checkout', '#'
+              = link_to 'Order Hisory', '#'
             %li
               = link_to 'Sign Out', destroy_user_session_path, method: :delete
           - else
