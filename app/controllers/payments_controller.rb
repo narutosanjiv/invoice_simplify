@@ -8,7 +8,18 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    invoice = Invoice.create()
+    white_listed_params = invoice_params
+    added_params = merge_with_extra_params(white_listed_params)
+    @invoice = Invoice.new(added_params)
+
+    if invoice.save 
+      @order.invoice_id = @order.id
+      @order.save
+
+      render template: 'invoices/show'
+    else 
+
+    end
   end
 
   private 
@@ -17,8 +28,23 @@ class PaymentsController < ApplicationController
       address_attributes: Address.attribute_names - ["id", "addressable_id", "addressable_type"])
   end
 
-  def fetch_required_params
-
+  def merge_with_extra_params(inv_params)
+    @order = Order.includes(:order_items).pending(current_user.id)
+    extra_params = {
+      invoice: {
+        date: DateTime.today,
+        number: SecureRandom.hex,
+        total_price: order.total_price,
+        user_id: current_user.id
+      },
+      payment_attributes: {
+        pay_method: 'online',
+        transaction_type: 'credit',
+        amount: order.total_price,
+        user_id: current_user.id
+      }
+    }
+    inv_params.deep_merge(extra_params)
   end
 
 end

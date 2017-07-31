@@ -12,8 +12,9 @@ class OrderItemsController < ApplicationController
         order_item = order.order_items.build(quantity: 1, item_id: @item.id, price: @item.price)
         order.total_price = @item.price
       else
-        order_item = OrderItem.where(item_id: @item.id, order_id: order.id).last || order.order_items.build(quantity: 0, item_id: @item.id, price: @item.price)
+        order_item = OrderItem.where(item_id: @item.id, order_id: order.id).last || order.order_items.build(quantity: 0, item_id: @item.id, unit_price: @item.price, price: @item.price)
         order_item.quantity = order_item.quantity + 1
+        order_item.price = order_item.price + @item.price
         order.total_price = order.total_price + @item.price
       end
       order.save!
