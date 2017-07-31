@@ -22,7 +22,6 @@ class OrderItemsController < ApplicationController
     end
     render json: {success: true, message: 'Added to Cart'}, status: 201
   rescue ActiveRecord::RecordInvalid => e
-    byebug
     render json: {success: true, message: e.message}, status: 403 
   end
 

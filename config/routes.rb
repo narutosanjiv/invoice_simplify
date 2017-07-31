@@ -11,5 +11,7 @@ Rails.application.routes.draw do
   match '/order_items', to: 'order_items#create', via: :post, as: :create_order_item
   match '/payments/new', to: 'payments#new', via: :get, as: :new_payments
   match '/payments', to: 'payments#create', via: :post, as: :payments
+  match '/invoices', to: 'invoices#index', via: :get, as: :invoices
+  match '/invoices/:number', to: 'invoices#show', via: :get, as: :invoice
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

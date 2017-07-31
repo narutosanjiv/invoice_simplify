@@ -1,0 +1,23 @@
+.container
+  .row
+    .table-responsive
+      %table.table.table-bordered
+        %thead
+          %tr
+            %th #
+            %th Date
+            %th Email
+            %th Total Price(GBP)
+            %th 
+        %tbody
+          - @invoices.each do|invoice|
+            %tr
+              %td
+                = link_to invoice.number, invoice_path(number: invoice.number)
+              %td
+                = invoice.date_at
+              %td
+                = invoice.address.email
+              %td 
+                = Fixer.conversion_rates(expected_currency: "GBP", amount: invoice.total_price)
+              

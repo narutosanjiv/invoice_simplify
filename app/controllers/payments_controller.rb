@@ -13,6 +13,7 @@ class PaymentsController < ApplicationController
     @invoice = Invoice.new(added_params)
     if @invoice.save 
       @order.invoice_id = @order.id
+      @order.status = 'completed'
       @order.save
       @address = @invoice.address
       render template: 'invoices/show'
