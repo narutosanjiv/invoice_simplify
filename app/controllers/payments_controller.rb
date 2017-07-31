@@ -12,7 +12,7 @@ class PaymentsController < ApplicationController
     added_params = merge_with_extra_params(white_listed_params.to_h)
     @invoice = Invoice.new(added_params)
     if @invoice.save 
-      @order.invoice_id = @order.id
+      @order.invoice_id = @invoice.id
       @order.status = 'completed'
       @order.save
       @address = @invoice.address
