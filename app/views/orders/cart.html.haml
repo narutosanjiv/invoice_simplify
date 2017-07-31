@@ -11,7 +11,6 @@
             %th  
         %tbody
           - subtotal = 0
-          - total_items = @order_items.count
           - @order_items.each do|order_item|
             - order_item_price = order_item.price * order_item.quantity
             - subtotal = subtotal + order_item_price
@@ -30,7 +29,7 @@
                     %span.text-success
                       %strong In Stock
               %td.col-sm-1.col-md-1{:style => "text-align: center"}
-                %input#exampleInputEmail1.form-control.disabled{:type => "email", :value => total_items}/
+                %input#exampleInputEmail1.form-control.disabled{:type => "email", :value => order_item.quantity}/
               %td.col-sm-1.col-md-1.text-center
                 %strong= "$#{order_item.price}"
               %td.col-sm-1.col-md-1.text-center
