@@ -1,6 +1,6 @@
 .container
   .row
-    - if @orders.blank?
+    - if @order.blank?
       No item added to cart
     - else
       .col-sm-12.col-md-10.col-md-offset-1
@@ -34,9 +34,9 @@
                 %td.col-sm-1.col-md-1{:style => "text-align: center"}
                   %input#item_quantity.form-control.disabled{:type => "email", :value => order_item.quantity}/
                 %td.col-sm-1.col-md-1.text-center
-                  %strong= "$#{order_item.price}"
+                  %strong= "$#{order_item.unit_price}"
                 %td.col-sm-1.col-md-1.text-center
-                  %strong= "$#{order_item.price * order_item.quantity}"
+                  %strong= "$#{order_item.price}"
                 %td.col-sm-1.col-md-1
                   %button.btn.btn-danger#order_item_remove{:type => "button"}
                     %span.glyphicon.glyphicon-remove
@@ -50,7 +50,7 @@
                 %h5 Subtotal
               %td.text-right
                 %h5
-                  %strong= "$#{subtotal}"
+                  %strong= "$#{@order.total_price}"
             %tr
               %td  
               %td  

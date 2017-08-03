@@ -1,7 +1,7 @@
 class PaymentsController < ApplicationController
 
   def new
-    @order = Order.pending(current_user.id)
+    @order = Order.pending(current_user.id).last
     @invoice = Invoice.new 
     @invoice.build_payment
     @invoice.build_address
@@ -29,7 +29,7 @@ class PaymentsController < ApplicationController
   end
 
   def merge_with_extra_params(inv_params)
-    @order = Order.includes(:order_items).pending(current_user.id)
+    @order = Order.includes(:order_items).pending(current_user.id).last
     extra_params = {
       date_at: DateTime.now,
       number: SecureRandom.hex,

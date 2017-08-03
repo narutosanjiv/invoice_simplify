@@ -14,6 +14,11 @@ $(document).ready(function() {
         data: {order_item: {item_id: $(this).data('item-id')}},
         success: function(data, textStatus, jqXHR ){
           alert('Success ')
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown){
+          if(errorThrown == 'Unauthorized'){
+           alert("Error: Login Required");
+          }
         }
       }
     )
