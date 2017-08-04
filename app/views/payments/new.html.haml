@@ -11,7 +11,7 @@
           %p
             = @invoice.errors.full_messages.join("\n")
   .row.cart-body
-    = form_for(@invoice, url: payments_path, method: :post, html: {class: 'form-horizontal new_invoice'}) do|f|
+    = form_for(@invoice, url: payments_path, method: :post, html: {class: 'form-horizontal new_invoice', data:{toggle: "validator"}}) do|f|
       .col-lg-6.col-md-6.col-sm-6.col-xs-12
         / Address
         = f.fields_for :address do|addr|
@@ -22,47 +22,48 @@
             .panel-body
               .form-group
                 .col-md-12
-                  %strong Country:
+                  %strong Country*:
                 .col-md-12
-                  = addr.text_field :country, class: 'form-control'
+                  = addr.text_field :country, class: 'form-control', required: true
+                .help-block.with-errors
               .form-group
                 .col-md-6.col-xs-12
-                  %strong First Name:
-                  = addr.text_field :first_name, class: 'form-control'
+                  %strong First Name*:
+                  = addr.text_field :first_name, class: 'form-control',  required: true
                 .span1
                 .col-md-6.col-xs-12
                   %strong Last Name:
                   = addr.text_field :last_name, class: 'form-control'
               .form-group
                 .col-md-12
-                  %strong Address:
+                  %strong Address*:
                 .col-md-12
-                  = addr.text_field :street1, class: 'form-control'
+                  = addr.text_field :street1, class: 'form-control',  required: true
               .form-group
                 .col-md-12
-                  %strong City:
+                  %strong City*:
                 .col-md-12
-                  = addr.text_field :city, class: 'form-control'
+                  = addr.text_field :city, class: 'form-control',  required: true
               .form-group
                 .col-md-12
-                  %strong State:
+                  %strong State*:
                 .col-md-12
-                  = addr.text_field :state, class: 'form-control'
+                  = addr.text_field :state, class: 'form-control',  required: true
               .form-group
                 .col-md-12
-                  %strong Zip / Postal Code:
+                  %strong Zip / Postal Code*:
                 .col-md-12
-                  = addr.text_field :pincode, class: 'form-control'
+                  = addr.text_field :pincode, class: 'form-control',  required: true
               .form-group
                 .col-md-12
-                  %strong Phone Number:
+                  %strong Phone Number*:
                 .col-md-12
-                  = addr.text_field :phone_no, class: 'form-control'
+                  = addr.text_field :phone_no, class: 'form-control',  required: true
               .form-group
                 .col-md-12
-                  %strong Email Address:
+                  %strong Email Address*:
                 .col-md-12
-                  = addr.text_field :email, class: 'form-control'
+                  = addr.text_field :email, class: 'form-control',  required: true
       / SHIPPING METHOD END
       / CREDIT CART PAYMENT
       .col-lg-6.col-md-6.col-sm-6.col-xs-12
@@ -75,23 +76,23 @@
             .panel-body
               .form-group
                 .col-md-12
-                  %strong Card Type:
+                  %strong Card Type*:
                 .col-md-12
                   = pymt.select :card_type, options_for_select([ "VISA", "MasterCard" ], "MasterCard"), {}, {class: 'form-control'}
                   
               .form-group
                 .col-md-12
-                  %strong Credit Card Number:
+                  %strong Credit Card Number*:
                 .col-md-12
-                  = pymt.text_field :credit_card_no, class: 'form-control'
+                  = pymt.text_field :credit_card_no, class: 'form-control', required: true
               .form-group
                 .col-md-12
-                  %strong Card CVV:
+                  %strong Card CVV*:
                 .col-md-12
-                  = pymt.text_field :cvv, class: 'form-control'
+                  = pymt.text_field :cvv, class: 'form-control', required: true
               .form-group
                 .col-md-12
-                  %strong Expiration Date
+                  %strong Expiration Date*
                 .col-lg-6.col-md-6.col-sm-6.col-xs-12
                   = pymt.select :expiry_month, options_for_select((1..12).to_a, 'Month'), {}, {class: 'form-control', prompt: 'Month'}
                   
@@ -111,3 +112,8 @@
                   %button.btn.btn-primary.btn-submit-fix{:type => "submit"} Place Order
         / CREDIT CART PAYMENT END
   .row.cart-footer
+
+:javascript
+  $(document).ready(function(){
+
+  });
