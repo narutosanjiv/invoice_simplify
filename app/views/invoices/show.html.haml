@@ -63,6 +63,8 @@
                     %strong Quantity
                   %td.text-right
                     %strong Totals(USD)
+                  %td.text-right
+                    %strong Totals(GBP)
               %tbody
                 - @order.order_items.each do|order_item|
                   %tr
@@ -70,12 +72,15 @@
                     %td.text-center= order_item.unit_price
                     %td.text-center= order_item.quantity 
                     %td.text-right= order_item.price
+                    %td.text-right= Fixer.conversion_rates(expected_currency: "GBP", amount: order_item.price)
+
                 %tr
                   %td.thick-line
                   %td.thick-line
                   %td.thick-line.text-center
                     %strong Subtotal
                   %td.thick-line.text-right= @invoice.total_price
+                  %td.text-right= Fixer.conversion_rates(expected_currency: "GBP", amount: @invoice.total_price)
  
                 %tr
                   %td.no-line

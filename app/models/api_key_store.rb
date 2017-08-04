@@ -1,0 +1,2 @@
+class ApiKeyStore < ApplicationRecord
+end

@@ -13,5 +13,9 @@ Rails.application.routes.draw do
   match '/payments', to: 'payments#create', via: :post, as: :payments
   match '/invoices', to: 'invoices#index', via: :get, as: :invoices
   match '/invoices/:number', to: 'invoices#show', via: :get, as: :invoice
+
+  get '/api/v1/users/invoices', to: 'api/v1/invoices#list'
+  get '/api/v1/users/invoices/:invoice_no', to: 'api/v1/invoices#show'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

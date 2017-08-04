@@ -5,3 +5,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+ApiKeyStore.where(key: ENV['API_SECRET_KEY']).first_or_create(domain: '*')

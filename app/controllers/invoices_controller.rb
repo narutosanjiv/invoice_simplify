@@ -1,4 +1,6 @@
 class InvoicesController < ApplicationController
+  
+  
   def index
     @invoices = Invoice.where(user_id: current_user.id)
 
