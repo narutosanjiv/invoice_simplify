@@ -3,8 +3,9 @@
   .row
     .col-xs-12
       .invoice-title
-        %h2 Invoice
-        %h3.pull-right Order "#{@invoice.number}"
+        %h2 Invoice Number
+        %h4= "#" + "#{@invoice.number}"
+        %h3.pull-right Order
       %hr/
       .row
         .col-xs-6
@@ -34,7 +35,7 @@
           %address
             %strong Payment Method:
             %br/
-            Visa ending **** 4242
+            Visa ending **** #{@invoice.payment.credit_card_no[-4..-1]}
             %br/
             = @address.email
         .col-xs-6.text-right
@@ -58,13 +59,13 @@
                   %td
                     %strong Item
                   %td.text-center
-                    %strong Price(USD)
+                    %strong Unit Price(USD)
                   %td.text-center
                     %strong Quantity
                   %td.text-right
-                    %strong Totals(USD)
+                    %strong Quantity Amount(USD)
                   %td.text-right
-                    %strong Totals(GBP)
+                    %strong Quantity Amount(GBP)
               %tbody
                 - @order.order_items.each do|order_item|
                   %tr
@@ -86,5 +87,6 @@
                   %td.no-line
                   %td.no-line
                   %td.no-line.text-center
-                    %strong Total(GBP)
+                    %strong Total
+                  %td.no-line.text-right= @invoice.total_price
                   %td.no-line.text-right= Fixer.conversion_rates(expected_currency: "GBP", amount: @invoice.total_price)

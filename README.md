@@ -1,45 +1,175 @@
-# Interview Assignment
+# Install Instruction
+  * bundle install 
+  * rake db:create
+  * rake db:migrate
+  * rake db:seed
+  * rails s
+ 
+ # Assumption
+ 
+ Invoice get created once payment done for items.
+ 
+ # Menu
+  * Product
+  * Shopping Cart
+  * Invoices
+  * SignOut
 
-## Purpose
-The purpose of this assignment is to evaluate your skills as a software engineer. It should take about 1 hour to complete this assignment, which is the typical length for most programming interviews, but you can spend as little or as much time as you need.
+ 
+ 
+ 
+ # Create a Invoice functionality'
+ 
+  *  Add Item to a Cart
+  *  Checkout and Add Payment Details
+  *  Save payment Details
+  *  Invoice get shown with two price(USD and GBP)
+  *  Both Payment and Invoice model get created 
 
-## Platform Requirements
-- Ruby on Rails >= 4.x.x
-- AngularJS >= 1.0.0
-- PostgreSQL >= 9.0.0
-- Git for source control
+ # Allows invoices to be accessible via a JSON API 
+ 
+  1) Show Invoice for particular user by providing invoice_number
+     * URL:  <b>api/v1/users/invoices/#{invoice_id}?email=#{email_id} </b>
+       
+       - Example request format in CURL:
+         ```
+           curl --request GET --url 'http://localhost:3000/api/v1/users/invoices/9dbcd940266b5f6ff6b6a9e513a432d0?email=test%40test.com' --header 'authorization: Token token=17b3a122d07b1812db760b1e06b5b52f5e9660dfd403733d3e0de57c4a503caeddb1f80baa188b501612a10e5bd14fef06c3555ebf2121f313d36adc48632bb0' --header 'content-type: application/json'
+         ```
+         
+         - Response
+         ```json
+         {
+             "number": "9dbcd940266b5f6ff6b6a9e513a432d0",
+             "invoice_date": "2017-08-03",
+             "price_in_gbp": 533.071,
+             "address": {
+                "id": 5,
+                "street1": "asasas",
+                "street2": null,
+                "city": "asasas",
+                "pincode": "411031",
+                "country": "India",
+                "mobile_no": null,
+                "email": "narutosanjiv@gmail.com",
+                "first_name": "Sanjiv",
+                "last_name": "Jha",
+                "state": "MH",
+                "phone_no": "109887771"
+             },
+             "payment": {
+                "transaction_type": "credit",
+                "amount": 700,
+                "card_type": "MasterCard"
+             }
+         }
+      ```
+      
+  2) List Invoice for particular user
+     
+     * URL: <b> api/v1/users/invoices?email=#{email_id} </b>
+       - Example request format in CURL:
+       ```
+          curl --request GET --url 'http://localhost:3000/api/v1/users/invoices?email=test%40test.com' --header 'authorization: Token token=17b3a122d07b1812db760b1e06b5b52f5e9660dfd403733d3e0de57c4a503caeddb1f80baa188b01612a10e5bd14fef06c3555ebf2121f313d36adc48632bb0' --header 'content-type: application/json' 
+       ````
 
-## Tasks
-1. Implement user authentication using the Devise gem
-    - user can sign up using email and password
-    - user can sign in using email and password
-2. Create an Invoice model
-    - Attributes: number, amount (USD), date, to address, from address, notes
-    - User should be able to login and create invoices
-3. Create a Payment model
-    - Attributes: amount (USD), date, invoice (reference)
-    - User can record a payment against an invoice in the system
-4. Use a public API provider to show "amount" in GBP when viewing an invoice
-    - API provider: http://fixer.io/
-    - Must be done in the backend, not the frontend.
-5. Allows invoices to be accessible via a JSON API
-    - A third party should be able to list and view a user's invoices.
-
-## Evaluation Criteria
-We will evaluate the code quality based on the following guidelines
-
-1. Practice "The Rails Way" - i.e. using rails conventions and best practices
-2. Good coding style: formatting, proper naming of variables and functions, etc...
-3. Knowledge of the rails ecosytem: proper use available gems, tools, etc...
-4. Logical database design
-5. Adequate understanding of security best practices
-6. The program runs... :)
-
-## Bonus Points
-These things are not required, and will not count against you if you don't do them, but will be a positive. If you do attempt any of these, you should do it correctly...
-
-- Using an HTML/CSS framework
-- Implementing authentication for the API service
-- Includes installation instructions
-- Leaving good git commit messages and proper use of source control
-- Deploying the app to a platform like Heroku so we can see it in action
+       - Response
+       
+       ```javascript
+       
+        [ {
+        "number": "6fa8db11e569a80bb7b0354445873f73",
+        "invoice_date": "2017-08-03",
+        "price_in_gbp": 609.224,
+        "address": {
+            "id": 3,
+            "street1": "asasas",
+            "street2": null,
+            "city": "asasas",
+            "pincode": "411031",
+            "country": "India",
+            "mobile_no": null,
+            "email": "narutosanjiv@gmail.com",
+            "first_name": "Sanjiv",
+            "last_name": "Jha",
+            "state": "MH",
+            "phone_no": "9762434156"
+        },
+        "payment": {
+            "transaction_type": "credit",
+            "amount": 800,
+            "card_type": "MasterCard"
+        }
+    },
+    {
+        "number": "e9abf6278131f2f1a69e2b88f35ce36d",
+        "invoice_date": "2017-08-03",
+        "price_in_gbp": 304.612,
+        "address": {
+            "id": 4,
+            "street1": "asasas",
+            "street2": null,
+            "city": "asasas",
+            "pincode": "411031",
+            "country": "India",
+            "mobile_no": null,
+            "email": "narutosanjiv@gmail.com",
+            "first_name": "Sanjiv",
+            "last_name": "Jha",
+            "state": "MH",
+            "phone_no": "9762434156"
+        },
+        "payment": {
+            "transaction_type": "credit",
+            "amount": 400,
+            "card_type": "MasterCard"
+        }
+    },
+    {
+        "number": "9dbcd940266b5f6ff6b6a9e513a432d0",
+        "invoice_date": "2017-08-03",
+        "price_in_gbp": 533.071,
+        "address": {
+            "id": 5,
+            "street1": "asasas",
+            "street2": null,
+            "city": "asasas",
+            "pincode": "411031",
+            "country": "India",
+            "mobile_no": null,
+            "email": "narutosanjiv@gmail.com",
+            "first_name": "Sanjiv",
+            "last_name": "Jha",
+            "state": "MH",
+            "phone_no": "109887771"
+        },
+        "payment": {
+            "transaction_type": "credit",
+            "amount": 700,
+            "card_type": "MasterCard"
+        }
+    },
+    {
+        "number": "19c9ff8c06f39fba1caeab2915678239",
+        "invoice_date": "2017-08-04",
+        "price_in_gbp": 76.153,
+        "address": {
+            "id": 6,
+            "street1": "",
+            "street2": null,
+            "city": "",
+            "pincode": "",
+            "country": "India",
+            "mobile_no": null,
+            "email": "",
+            "first_name": "",
+            "last_name": "",
+            "state": "",
+            "phone_no": ""
+        },
+        "payment": {
+            "transaction_type": "credit",
+            "amount": 100,
+            "card_type": "MasterCard"
+        }
+    }]
+```
