@@ -11,21 +11,22 @@
         .navbar-header
           %a.navbar-brand{:href => "/"} Invoice Simplify
         %ul.nav.navbar-nav
-          %li.active
+          %li{class: ('active' if request.path == '/')}
             %a{:href => item_index_path} Product
+          
           - if current_user
-            %li
-              = link_to 'My Account', '#'
-            %li
+            %li{class: ('active' if request.path == '/cart')}
               = link_to 'Shopping Cart', cart_orders_path
-           
-            %li
+            
+            %li{class: ('active' if request.path == '/invoices')}
               = link_to 'Invoices', invoices_path
-            %li
-              = link_to 'Sign Out', destroy_user_session_path, method: :delete
+            
+            %li{class: ('active' if request.path == '/users/sign_out')}
+              = link_to 'Sign Out', destroy_user_session_path, method: :delete 
+            
           - else
-            %li
+            %li{class: ('active' if request.path == '/users/sign_in')}
               = link_to 'SignIn', new_user_session_path
-            %li
+            %li{class: ('active' if request.path == '/users/sign_up')}
               = link_to 'SignUp', new_user_registration_path
     = yield
