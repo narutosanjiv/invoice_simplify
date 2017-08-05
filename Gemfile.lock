@@ -256,7 +256,6 @@ DEPENDENCIES
   puma (~> 3.7)
   rails (~> 5.1.2)
   rails_admin (~> 1.2)
-  sass-rails (~> 5.0)
   selenium-webdriver
   turbolinks (~> 5)
   tzinfo-data
