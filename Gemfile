@@ -13,7 +13,7 @@ gem 'rails', '~> 5.1.2'
 gem 'pg'
 gem 'rails_admin', '~> 1.2'
 # Use Puma as the app server
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 5.6', '>= 5.6.9'
 gem 'devise'
 gem 'haml-rails'
 # Use SCSS for stylesheets
