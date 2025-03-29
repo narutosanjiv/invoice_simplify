@@ -9,13 +9,13 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.2'
+gem 'rails', '~> 7.0.0'
 gem 'pg'
-gem 'rails_admin', '~> 1.2'
+gem 'rails_admin', '~> 3.0', '>= 3.0.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 gem 'devise'
-gem 'haml-rails'
+gem 'haml-rails', '>= 2.1.0'
 # Use SCSS for stylesheets
 #gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
